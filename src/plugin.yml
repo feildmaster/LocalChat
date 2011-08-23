@@ -1,0 +1,4 @@
+name: LocalChat
+main: feildmaster.LocalChat.Chat
+version: 1.0
+author: feildmaster
