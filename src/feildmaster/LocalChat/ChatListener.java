@@ -16,6 +16,9 @@ public class ChatListener extends PlayerListener {
 
     public void onPlayerChat(PlayerChatEvent event) {
         Player s = event.getPlayer();
+
+        if(plugin.getFactionsPlugin() != null && plugin.getFactionsPlugin().isPlayerFactionChatting(s)) return;
+
         Set<Player> rs = event.getRecipients();
         range = plugin.getRange();
 

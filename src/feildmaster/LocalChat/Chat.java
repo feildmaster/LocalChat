@@ -1,5 +1,6 @@
 package feildmaster.LocalChat;
 
+import com.massivecraft.factions.Factions;
 import java.io.File;
 import org.bukkit.event.Event.Priority;
 import org.bukkit.event.Event.Type;
@@ -8,6 +9,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class Chat extends JavaPlugin {
     private int range = 1000;
     private String message = "No one within range of your voice...";
+    private Factions factions;
 
     public void onLoad() {
         if(!(new File(getDataFolder(),"config.yml").exists())) {
@@ -15,6 +17,8 @@ public class Chat extends JavaPlugin {
             getConfiguration().setProperty("null_message", message);
             getConfiguration().save();
         }
+
+        factions = (Factions)getServer().getPluginManager().getPlugin("Factions");
     }
 
     public void onDisable() {
@@ -39,5 +43,9 @@ public class Chat extends JavaPlugin {
 
     public String getMessage() {
         return message;
+    }
+
+    public Factions getFactionsPlugin() {
+        return factions;
     }
 }
