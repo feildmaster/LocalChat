@@ -1,5 +1,6 @@
 package feildmaster.LocalChat;
 
+import java.util.HashSet;
 import java.util.Set;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
@@ -19,15 +20,18 @@ public class ChatListener extends PlayerListener {
 
         if(plugin.getFactionsPlugin() != null && plugin.getFactionsPlugin().isPlayerFactionChatting(s)) return;
 
-        Set<Player> rs = event.getRecipients();
         range = plugin.getRange();
+        Set<Player> removed = new HashSet<Player>();
 
-        for(Player r : rs) {
+        for(Player r : event.getRecipients()) {
             if(s.getWorld() != r.getWorld() || outOfRange(s.getLocation(), r.getLocation()))
-                rs.remove(r);
+                removed.add(r);
         }
 
-        if(rs.size() == 1) {
+        if(!removed.isEmpty())
+            event.getRecipients().removeAll(removed);
+
+        if(event.getRecipients().size() == 1) {
             s.sendMessage(plugin.getMessage());
             event.setCancelled(true);
         }
@@ -43,8 +47,8 @@ public class ChatListener extends PlayerListener {
         if(l == ll) return false;
 
         if(Math.max(l.getBlockX(), ll.getBlockX())-Math.min(l.getBlockX(), ll.getBlockX())>range) return true;
-        if(Math.max(l.getBlockY(), ll.getBlockY())-Math.min(l.getBlockY(), ll.getBlockY())>range) return true;
         if(Math.max(l.getBlockZ(), ll.getBlockZ())-Math.min(l.getBlockZ(), ll.getBlockZ())>range) return true;
+        if(Math.max(l.getBlockY(), ll.getBlockY())-Math.min(l.getBlockY(), ll.getBlockY())>range) return true;
 
         return false;
     }
