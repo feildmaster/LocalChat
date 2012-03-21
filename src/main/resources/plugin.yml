@@ -1,0 +1,4 @@
+name: LocalChat
+main: com.feildmaster.localchat.Chat
+version: ${version}
+author: feildmaster

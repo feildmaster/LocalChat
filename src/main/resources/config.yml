@@ -1,0 +1,6 @@
+local:
+  range: 2
+  null_message: No one within range of your voice...
+global:
+  prefix: '!'
+  format: '%1$s shouts: %2$s'
